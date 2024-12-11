@@ -1,6 +1,6 @@
 <?php
-require_once '../config/Database.php';
-require_once '../models/Artist.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../models/Artist.php';
 
 class ArtistController {
     private $db;
@@ -15,20 +15,20 @@ class ArtistController {
     // List all artists
     public function listArtists() {
         $artists = $this->artistModel->getAllArtists();
-        include_once '../views/artist_view.php';
+        include_once __DIR__ . '/../views/artist_view.php';
     }
 
     // View a single artist by ID
     public function viewArtist($id) {
         $artist = $this->artistModel->getArtistById($id);
-        include_once '../views/artist_detail.php';
+        include_once __DIR__ . '/../views/artist_detail.php';
     }
 
     // Add a new artist
     public function addArtist($name) {
         $this->artistModel->name = $name;
         if ($this->artistModel->addArtist()) {
-            header('Location: index.php');
+            header('Location: ../index.php');
         } else {
             echo "Error adding artist.";
         }
@@ -38,7 +38,7 @@ class ArtistController {
     public function updateArtist($id, $name) {
         $this->artistModel->name = $name;
         if ($this->artistModel->updateArtist($id)) {
-            header('Location: index.php');
+            header('Location: ../index.php');
         } else {
             echo "Error updating artist.";
         }
@@ -47,7 +47,7 @@ class ArtistController {
     // Delete an artist by ID
     public function deleteArtist($id) {
         if ($this->artistModel->deleteArtist($id)) {
-            header('Location: index.php');
+            header('Location: ../index.php');
         } else {
             echo "Error deleting artist.";
         }

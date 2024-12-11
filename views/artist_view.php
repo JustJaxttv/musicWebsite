@@ -1,4 +1,4 @@
-<?php include '../views/layout/header.php'; ?>
+<?php include __DIR__ . '/../views/layout/header.php'; ?>
 
 <h2>Artist List</h2>
 
@@ -26,4 +26,4 @@
     </tbody>
 </table>
 
-<?php include '../views/layout/footer.php'; ?>
+<?php include __DIR__ . '/../views/layout/footer.php'; ?>

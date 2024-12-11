@@ -1,6 +1,6 @@
 <?php
-require_once '../config/Database.php';
-require_once '../models/Song.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../models/Song.php';
 
 class SongController {
     private $db;
@@ -15,13 +15,13 @@ class SongController {
     // List all songs
     public function listSongs() {
         $songs = $this->songModel->getAllSongs();
-        include_once '../views/song_list.php';
+        include_once __DIR__ . '/../views/song_list.php';
     }
 
     // View a single song by ID
     public function viewSong($id) {
         $song = $this->songModel->getSongById($id);
-        include_once '../views/song_view.php';
+        include_once __DIR__ . '/../views/song_view.php';
     }
 
     // Add a new song
@@ -33,7 +33,7 @@ class SongController {
         $this->songModel->release_date = $release_date;
 
         if ($this->songModel->addSong()) {
-            header('Location: index.php');
+            header('Location: ../index.php');
         } else {
             echo "Error adding song.";
         }
@@ -48,7 +48,7 @@ class SongController {
         $this->songModel->release_date = $release_date;
 
         if ($this->songModel->updateSong($id)) {
-            header('Location: index.php');
+            header('Location: ../index.php');
         } else {
             echo "Error updating song.";
         }
@@ -57,7 +57,7 @@ class SongController {
     // Delete a song by ID
     public function deleteSong($id) {
         if ($this->songModel->deleteSong($id)) {
-            header('Location: index.php');
+            header('Location: ../index.php');
         } else {
             echo "Error deleting song.";
         }

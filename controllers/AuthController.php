@@ -1,6 +1,6 @@
 <?php
-require_once '../config/Database.php';
-require_once '../models/User.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../models/User.php';
 
 class AuthController {
     private $db;
@@ -43,7 +43,7 @@ class AuthController {
     public function logout() {
         session_start();
         session_destroy();
-        header('Location: login.php');
+        header('Location: ../login.php');
         exit;
     }
 }

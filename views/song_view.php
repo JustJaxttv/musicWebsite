@@ -1,4 +1,4 @@
-<?php include_once "./layout/header.php"; ?>
+<?php include_once __DIR__ . "/./layout/header.php"; ?>
 
 <h2>Song Details</h2>
 
@@ -14,4 +14,4 @@
 
 <a href="../controllers/SongController.php?action=list">Back to Song List</a>
 
-<?php include_once "./layout/footer.php"; ?>
+<?php include_once __DIR__ . "/./layout/footer.php"; ?>
