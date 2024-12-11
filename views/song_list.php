@@ -20,7 +20,7 @@
             <tr>
                 <td><?php echo htmlspecialchars($song['id']); ?></td>
                 <td><?php echo htmlspecialchars($song['title']); ?></td>
-                <td><?php echo htmlspecialchars($song['artist_name']); ?></td>
+                <td><?php echo htmlspecialchars($song['name']); ?></td>
                 <td><?php echo htmlspecialchars($song['album']); ?></td>
                 <td><?php echo htmlspecialchars($song['genre']); ?></td>
                 <td><?php echo htmlspecialchars($song['release_date']); ?></td>

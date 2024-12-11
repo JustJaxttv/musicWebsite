@@ -2,89 +2,72 @@
 require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../models/Song.php';
 
-class SongController {
-    private $db;
-    private $songModel;
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-    public function __construct() {
-        $database = new Database();
-        $this->db = $database->connect();
-        $this->songModel = new Song($this->db);
-    }
+// Initialize database connection
+$database = new Database();
+$db = $database->Connect();
 
-    // List all songs
-    public function listSongs() {
-        $songs = $this->songModel->getAllSongs();
-        include_once __DIR__ . '/../views/song_list.php';
-    }
+// Initialize the Song model
+$song = new Song($db);
 
-    // View a single song by ID
-    public function viewSong($id) {
-        $song = $this->songModel->getSongById($id);
-        include_once __DIR__ . '/../views/song_view.php';
-    }
+// Determine the action
+$action = isset($_GET['action']) ? $_GET['action'] : 'list';
 
-    // Add a new song
-    public function addSong($title, $artist_id, $album, $genre, $release_date) {
-        $this->songModel->title = $title;
-        $this->songModel->artist_id = $artist_id;
-        $this->songModel->album = $album;
-        $this->songModel->genre = $genre;
-        $this->songModel->release_date = $release_date;
+switch ($action) {
+    case 'list':
+        // Fetch all songs
+        $songs = $song->getAllSongs();
+        include '../views/song_list.php';
+        break;
 
-        if ($this->songModel->addSong()) {
-            header('Location: ../index.php');
+    case 'view':
+        $id = isset($_GET['id']) ? $_GET['id'] : die('Song ID not provided.');
+        $songData = $song->getSongById($id);
+        include '../views/song_view.php';
+        break;
+
+    case 'add':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $title = $_POST['title'];
+            $artist_id = $_POST['artist_id'];
+            $album = $_POST['album'];
+            $genre = $_POST['genre'];
+            $release_date = $_POST['release_date'];
+            $song->addSong($title, $artist_id, $album, $genre, $release_date);
+            header('Location: SongController.php?action=list');
         } else {
-            echo "Error adding song.";
+            include '../views/add_song.php';
         }
-    }
+        break;
 
-    // Update an existing song
-    public function updateSong($id, $title, $artist_id, $album, $genre, $release_date) {
-        $this->songModel->title = $title;
-        $this->songModel->artist_id = $artist_id;
-        $this->songModel->album = $album;
-        $this->songModel->genre = $genre;
-        $this->songModel->release_date = $release_date;
-
-        if ($this->songModel->updateSong($id)) {
-            header('Location: ../index.php');
+    case 'update':
+        $id = isset($_GET['id']) ? $_GET['id'] : die('Song ID not provided.');
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $title = $_POST['title'];
+            $artist_id = $_POST['artist_id'];
+            $album = $_POST['album'];
+            $genre = $_POST['genre'];
+            $release_date = $_POST['release_date'];
+            $song->updateSong($id, $title, $artist_id, $album, $genre, $release_date);
+            header('Location: SongController.php?action=list');
         } else {
-            echo "Error updating song.";
+            $songData = $song->getSongById($id);
+            include '../views/add_song.php';
         }
-    }
+        break;
 
-    // Delete a song by ID
-    public function deleteSong($id) {
-        if ($this->songModel->deleteSong($id)) {
-            header('Location: ../index.php');
-        } else {
-            echo "Error deleting song.";
-        }
-    }
+    case 'delete':
+        $id = isset($_GET['id']) ? $_GET['id'] : die('Song ID not provided.');
+        $song->deleteSong($id);
+        header('Location: SongController.php?action=list');
+        break;
+
+    default:
+        echo "Invalid action.";
+        break;
 }
-
-// Handle form actions
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $songController = new SongController();
-
-    if (isset($_POST['action'])) {
-        if ($_POST['action'] === 'add') {
-            $songController->addSong($_POST['title'], $_POST['artist_id'], $_POST['album'], $_POST['genre'], $_POST['release_date']);
-        } elseif ($_POST['action'] === 'update') {
-            $songController->updateSong($_POST['id'], $_POST['title'], $_POST['artist_id'], $_POST['album'], $_POST['genre'], $_POST['release_date']);
-        }
-    }
-}
-
-// Handle delete action via GET request
-if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
-    $songController = new SongController();
-    $songController->deleteSong($_GET['id']);
-}
-
-// Handle view action via GET request
-if (isset($_GET['action']) && $_GET['action'] === 'view' && isset($_GET['id'])) {
-    $songController = new SongController();
-    $songController->viewSong($_GET['id']);
-}
+?>

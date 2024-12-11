@@ -1,58 +1,46 @@
 <?php
 class Artist {
     private $conn;
-    private $table = 'artists';
-
-    public $id;
-    public $name;
+    private $table_name = 'artists';
 
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    // Fetch all artists
     public function getAllArtists() {
-        $query = 'SELECT * FROM ' . $this->table;
+        $query = "SELECT id, name FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
-    // Fetch a single artist by ID
     public function getArtistById($id) {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE id = :id';
+        $query = "SELECT id, name FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(1, $id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Add a new artist
-    public function addArtist() {
-        $query = 'INSERT INTO ' . $this->table . ' SET name = :name';
+    public function addArtist($name) {
+        $query = "INSERT INTO " . $this->table_name . " (name) VALUES (?)";
         $stmt = $this->conn->prepare($query);
-        $this->name = htmlspecialchars(strip_tags($this->name));
-
-        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(1, $name);
         return $stmt->execute();
     }
 
-    // Update an existing artist
-    public function updateArtist($id) {
-        $query = 'UPDATE ' . $this->table . ' SET name = :name WHERE id = :id';
+    public function updateArtist($id, $name) {
+        $query = "UPDATE " . $this->table_name . " SET name = ? WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $this->name = htmlspecialchars(strip_tags($this->name));
-
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(1, $name);
+        $stmt->bindParam(2, $id);
         return $stmt->execute();
     }
 
-    // Delete an artist by ID
     public function deleteArtist($id) {
-        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(1, $id);
         return $stmt->execute();
     }
 }
