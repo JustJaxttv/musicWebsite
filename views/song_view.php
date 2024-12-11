@@ -1,4 +1,4 @@
-<?php include 'layout/header.php'; ?>
+<?php include '../views/layout/header.php'; ?>
 
 <h2>Song Details</h2>
 
@@ -12,6 +12,6 @@
     <p>Song not found.</p>
 <?php endif; ?>
 
-<a href="controllers/SongController.php?action=list">Back to Song List</a>
+<a href="../controllers/SongController.php?action=list">Back to Song List</a>
 
-<?php include 'layout/footer.php'; ?>
+<?php include '../views/layout/footer.php'; ?>

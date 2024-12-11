@@ -1,6 +1,6 @@
-<?php include 'layout/header.php'; ?>
+<?php include '../views/layout/header.php'; ?>
 <h2>Add Song</h2>
-<form method="POST" action="controllers/SongController.php?action=add">
+<form method="POST" action="../controllers/SongController.php?action=add">
     Title: <input type="text" name="title" required><br>
     Artist ID: <input type="number" name="artist_id" required><br>
     Album: <input type="text" name="album"><br>
@@ -8,4 +8,4 @@
     Release Date: <input type="date" name="release_date"><br>
     <input type="submit" value="Add Song">
 </form>
-<?php include 'layout/footer.php'; ?>
+<?php include '../views/layout/footer.php'; ?>

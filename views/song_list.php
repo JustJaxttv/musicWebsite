@@ -1,8 +1,8 @@
-<?php include 'layout/header.php'; ?>
+<?php include '../views/layout/header.php'; ?>
 
 <h2>Song List</h2>
 
-<a href="views/add_song.php">Add New Song</a>
+<a href="../views/add_song.php">Add New Song</a>
 <table border="1" cellpadding="10">
     <thead>
         <tr>
@@ -25,13 +25,13 @@
                 <td><?php echo htmlspecialchars($song['genre']); ?></td>
                 <td><?php echo htmlspecialchars($song['release_date']); ?></td>
                 <td>
-                    <a href="controllers/SongController.php?action=view&id=<?php echo $song['id']; ?>">View</a> |
-                    <a href="views/add_song.php?id=<?php echo $song['id']; ?>&action=update">Update</a> |
-                    <a href="controllers/SongController.php?action=delete&id=<?php echo $song['id']; ?>" onclick="return confirm('Are you sure you want to delete this song?');">Delete</a>
+                    <a href="../controllers/SongController.php?action=view&id=<?php echo $song['id']; ?>">View</a> |
+                    <a href="../views/add_song.php?id=<?php echo $song['id']; ?>&action=update">Update</a> |
+                    <a href="../controllers/SongController.php?action=delete&id=<?php echo $song['id']; ?>" onclick="return confirm('Are you sure you want to delete this song?');">Delete</a>
                 </td>
             </tr>
         <?php endwhile; ?>
     </tbody>
 </table>
 
-<?php include 'layout/footer.php'; ?>
+<?php include '../views/layout/footer.php'; ?>

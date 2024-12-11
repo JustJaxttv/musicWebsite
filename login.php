@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'config/Database.php';
-require_once 'controllers/AuthController.php';
+require_once './config/Database.php';
+require_once './controllers/AuthController.php';
 
 // Initialize error message
 $error_message = '';

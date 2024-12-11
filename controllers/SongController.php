@@ -15,13 +15,13 @@ class SongController {
     // List all songs
     public function listSongs() {
         $songs = $this->songModel->getAllSongs();
-        include 'views/song_list.php';
+        include '../views/song_list.php';
     }
 
     // View a single song by ID
     public function viewSong($id) {
         $song = $this->songModel->getSongById($id);
-        include 'views/song_view.php';
+        include '../views/song_view.php';
     }
 
     // Add a new song
