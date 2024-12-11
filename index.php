@@ -1,4 +1,4 @@
-<?php include 'views/layout/header.php'; ?>
+<?php include_once 'views/layout/header.php'; ?>
 
 <h2>Welcome to the Music Site</h2>
 <p>This site allows you to manage songs, artists, albums, and genres. Use the navigation links below to explore the site.</p>
@@ -11,4 +11,4 @@
     <li><a href="controllers/AuthController.php?action=logout">Logout</a></li>
 </ul>
 
-<?php include 'views/layout/footer.php'; ?>
+<?php include_once 'views/layout/footer.php'; ?>

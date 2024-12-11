@@ -66,4 +66,3 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     $authController = new AuthController();
     $authController->logout();
 }
-?>

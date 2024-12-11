@@ -1,4 +1,4 @@
-<?php include '../views/layout/header.php'; ?>
+<?php include_once "./layout/header.php"; ?>
 
 <h2>Song Details</h2>
 
@@ -14,4 +14,4 @@
 
 <a href="../controllers/SongController.php?action=list">Back to Song List</a>
 
-<?php include '../views/layout/footer.php'; ?>
+<?php include_once "./layout/footer.php"; ?>

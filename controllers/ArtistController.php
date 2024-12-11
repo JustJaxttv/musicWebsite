@@ -15,13 +15,13 @@ class ArtistController {
     // List all artists
     public function listArtists() {
         $artists = $this->artistModel->getAllArtists();
-        include '../views/artist_view.php';
+        include_once '../views/artist_view.php';
     }
 
     // View a single artist by ID
     public function viewArtist($id) {
         $artist = $this->artistModel->getArtistById($id);
-        include '../views/artist_detail.php';
+        include_once '../views/artist_detail.php';
     }
 
     // Add a new artist
@@ -78,4 +78,3 @@ if (isset($_GET['action']) && $_GET['action'] === 'view' && isset($_GET['id'])) 
     $artistController = new ArtistController();
     $artistController->viewArtist($_GET['id']);
 }
-?>
